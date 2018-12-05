@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset = "utf-8">
+</head>
+<body>
+	<div>
+		用户名称：
+		<input type = "text" id="uname">
+	</div>
+	<div>
+		用户密码：
+		<input type = "password" id = "upwd">
+	</div>
+	<input type="button" value="登录" onclick="login()">
+	<div id="log"></div>
+	<script type="text/javascript">
+		function login(){
+			//小黄人四部曲
+			//第一步、获取xhr
+			var xhr = new XMLHttpRequest();
+			//第二部、绑定监听
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState == 4&&xhr.status == 200) {
+					var result = xhr.responseText;
+					log.innerHTML = result ;
+				}
+			}
+			//第三部、创建请求
+			xhr.open("post","/mypro/login",false);
+			var formdate = "uname=" + uname.value + "&upwd=" + upwd.value;
+			xhr.setRequestHeader("Content-Type","application/x-www-from-urlencoded");
+			//第四部、发送请求
+			xhr.send(formdate);
+		}
+	</script>
+</body>
+</html>
