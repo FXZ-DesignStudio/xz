@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>用户登录</title>
 	<meta charset = "utf-8">
 </head>
 <body>
@@ -15,24 +15,29 @@
 	</div>
 	<input type="button" value="登录" onclick="login()">
 	<div id="log"></div>
-	<script type="text/javascript">
+	<script>
 		function login(){
 			//小黄人四部曲
 			//第一步、获取xhr
 			var xhr = new XMLHttpRequest();
 			//第二部、绑定监听
 			xhr.onreadystatechange = function(){
-				if (xhr.readyState == 4&&xhr.status == 200) {
+				//console.log(xhr)
+				if (xhr.readyState == 4 && xhr.status == 200) {
 					var result = xhr.responseText;
+					//var name = JSON.parse(result)
+					console.log(result)
+					//if
 					log.innerHTML = result ;
+
 				}
 			}
 			//第三部、创建请求
-			xhr.open("post","/mypro/login",false);
-			var formdate = "uname=" + uname.value + "&upwd=" + upwd.value;
-			xhr.setRequestHeader("Content-Type","application/x-www-from-urlencoded");
+			xhr.open("post","/mypro/login",true);
+			var formdata="uname="+uname.value+"&upwd="+upwd.value;
+			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 			//第四部、发送请求
-			xhr.send(formdate);
+			xhr.send(formdata);
 		}
 	</script>
 </body>
