@@ -6,13 +6,15 @@ const bodyParser = require('body-parser');
 var router = express.Router();
 
 //添加路由器
+
+//一.用户登录界面数据响应路由
 router.post ("/login",(req,res)=>{
 	//获取用户名密码
 	var $uname = req.body.uname;
 	var $upwd = req.body.upwd;
-	console.log($uname,$upwd)
+	//onsole.log($uname,$upwd)//检查从服务器接收到的数据_打桩用
 	if (!$uname) {
-		res,send("请输入用户名");
+		res,send("请输入用户名"); 
 		return;
 	}
 	if (!$upwd) {
@@ -20,14 +22,15 @@ router.post ("/login",(req,res)=>{
 		return;
 	}
 	var sql = "select * from xz_user where uname = ? and upwd=?";
+	var a=1
 	pool.query(sql,[$uname,$upwd],(err,result)=>{
 		if (err) throw err;
-		console.log(result)//检查masql值是否正常
+		//console.log(result)//检查masql值是否正常
 		//如果result.length大于0遍
 		if (result.length>0) {
 			res.send(result)
 		}else{
-			res.send("对不起！登录失败！！");
+			res.send("[1]");
 		}
 	})
 })

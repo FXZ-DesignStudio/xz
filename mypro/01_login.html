@@ -5,6 +5,7 @@
 	<meta charset = "utf-8">
 </head>
 <body>
+	<!-- 创建用户输入条目 -->
 	<div>
 		用户名称：
 		<input type = "text" id="uname">
@@ -13,7 +14,9 @@
 		用户密码：
 		<input type = "password" id = "upwd">
 	</div>
+	<!-- 使用onclick事件来进行登录 -->
 	<input type="button" value="登录" onclick="login()">
+	<!-- 用户登录状态显示页面 -->
 	<div id="log"></div>
 	<script>
 		function login(){
@@ -24,22 +27,36 @@
 			xhr.onreadystatechange = function(){
 				//console.log(xhr)
 				if (xhr.readyState == 4 && xhr.status == 200) {
+					//接收数据库传回的代码
 					var result = xhr.responseText;
-					var ame = JSON.parse(result)
-					//console.log(result)
+					//console.log(result)//接受文件_打桩备用
 					var $gender="" ;
-					if (ame[0].gender == 1) {
-						$gender = "先生"
-					}else if (ame[0].gender == 0) {
-						$gender = "女士"}else{$gender = " "}
-					log.innerHTML = "欢迎您！尊敬的："+ame[0].user_name + $gender;																										
+					//解析收回的json数值为对象行使
+					var ame = JSON.parse(result)
+					//console.log(ame)//json解析后对象打桩测试用
+					if (ame==1){
+						//输入错误显示文件
+						log.innerHTML="对不起登录错误"
+						return
+					}else{
+						//if对象显示登录用户性别
+						if (ame[0].gender == 1) {
+							$gender = "先生"
+						}else if (ame[0].gender == 0) {
+							$gender = "女士"}
+						else{$gender=""}
+					}
+					//把要在页面显示的值变为对象并拼接"真实姓名与性别"
+					log.innerHTML = "欢迎您！尊敬的"+ame[0].user_name + $gender;					
 				}
 			}
 			//第三部、创建请求
 			xhr.open("post","/mypro/login",true);
-			var formdata="uname="+uname.value+"&upwd="+upwd.value;
 			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 			//第四部、发送请求
+			//把获取到的页面用户名和密码发打包
+			var formdata="uname="+uname.value+"&upwd="+upwd.value;
+			//发送一个formdata发送给服务器
 			xhr.send(formdata);
 		}
 	</script>
