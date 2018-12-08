@@ -17,7 +17,7 @@
 	<!-- 使用onclick事件来进行登录 -->
 	<input type="button" value="登录" onclick="login()">
 	<!-- 用户登录状态显示页面 -->
-	<div id="log"></div>
+	<div id="log"></div> 
 	<script>
 		function login(){
 			//小黄人四部曲
@@ -33,11 +33,18 @@
 					var $gender="" ;
 					//解析收回的json数值为对象行使
 					var ame = JSON.parse(result)
-					//console.log(ame)//json解析后对象打桩测试用
-					if (ame==1){
+					console.log(ame)//json解析后对象打桩测试用
+					if (ame<= 3 && result>0){
 						//输入错误显示文件
-					log.innerHTML="对不起登录错误"
-						return
+						log.innerHTML=ame
+						if (ame == 3) {
+							log.innerHTML="用户名为空"
+							return
+						}else if(ame ==2) {
+							log.innerHTML="密码为空"
+						}else{
+							log.innerHTML="登录失败"
+						}
 					}else{
 						//if对象显示登录用户性别
 						if (ame[0].gender == 1) {
@@ -45,9 +52,10 @@
 						}else if (ame[0].gender == 0) {
 							$gender = "女士"}
 						else{$gender=""}
+					log.innerHTML = "欢迎您！尊敬的"+ame[0].user_name + $gender;
 					}
 					//把要在页面显示的值变为对象并拼接"真实姓名与性别"
-					log.innerHTML = "欢迎您！尊敬的"+ame[0].user_name + $gender;					
+										
 				}
 			}
 			//第三部、创建请求
