@@ -22,7 +22,6 @@ router.post ("/login",(req,res)=>{
 		return;
 	}
 	var sql = "select * from xz_user where uname = ? and upwd=?";
-	var a=1
 	pool.query(sql,[$uname,$upwd],(err,result)=>{
 		if (err) throw err;
 		//console.log(result)//检查masql值是否正常
@@ -30,7 +29,7 @@ router.post ("/login",(req,res)=>{
 		if (result.length>0) {
 			res.send(result)
 		}else{
-			res.send("[1]");
+			res.send("1");
 		}
 	})
 })

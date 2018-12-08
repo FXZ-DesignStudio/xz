@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>超级管理员登录模块</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div>
+		SuperAdminLogin
+	</div>
+	<div>
+		AdminName:
+		<input type="text" id="sname">
+	</div>
+	<div>
+		AdminPassword:
+		<input type="password" id="spwd">
+	</div>
+	<div id="err"></div>
+	<input type="button" value="登录" onclick="slogin()">
+	<script type="text/javascript">
+		function slogin(){
+			var xhr = new XMLHttpRequest(); //1
+			var onreadystatechange = function (){   //2
+				if (xhr.readyState==4 && xhr.status == 200) {
+					var result = xhr.responseText
+					ame == 1 ? err.innrtHTML = "登录错误" : location.href="";
+				}
+			}xhr.open("post","/mypro/slogin",true);
+			xhr.setRequestHeader("Content-Type","application/x-www-from-urlencoded");
+			var formdata="sname="+sname.value+"&spwd="+spwd.value;
+			xhr.send(formdata);
+		}
+	</script>
+</body>
+</html>
